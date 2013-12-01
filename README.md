@@ -1,10 +1,10 @@
-# rbxload.lua
+# rbxloader.lua
 
 Downloads ROBLOX builds using a command-line interface.
 
 ## Arguments
 
-rbxload.lua accepts the following arguments:
+rbxloader.lua accepts the following arguments:
 
 1. The directory to download to. Defaults to the current directory.
 2. The domain to download from. Defaults to `roblox.com`.
@@ -18,10 +18,10 @@ rbxload.lua accepts the following arguments:
 ## Examples
 
 ```
-lua rbxload.lua
-lua rbxload.lua . roblox.com player
-lua rbxload.lua %temp%/roblox/gt5/ gametest1.robloxlabs.com studio
-lua rbxload.lua C:/roblox/gt5/ gametest5.robloxlabs.com version-1a2b3c4d5e6f7890
+lua rbxloader.lua
+lua rbxloader.lua . roblox.com player
+lua rbxloader.lua %temp%/roblox/gt5/ gametest1.robloxlabs.com studio
+lua rbxloader.lua C:/roblox/gt5/ gametest5.robloxlabs.com version-1a2b3c4d5e6f7890
 ```
 
 ## Dependencies

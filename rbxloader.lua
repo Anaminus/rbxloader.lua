@@ -1,5 +1,5 @@
 --[[
-rbxload.lua
+rbxloader.lua
 
 Downloads ROBLOX builds using a command-line interface.
 
@@ -16,10 +16,10 @@ Arguments:
 
 Examples:
 
-	lua rbxload.lua
-	lua rbxload.lua . roblox.com player
-	lua rbxload.lua %temp%/roblox/gt5/ gametest1.robloxlabs.com studio
-	lua rbxload.lua C:/roblox/gt5/ gametest5.robloxlabs.com version-1a2b3c4d5e6f7890
+	lua rbxloader.lua
+	lua rbxloader.lua . roblox.com player
+	lua rbxloader.lua %temp%/roblox/gt5/ gametest1.robloxlabs.com studio
+	lua rbxloader.lua C:/roblox/gt5/ gametest5.robloxlabs.com version-1a2b3c4d5e6f7890
 
 Dependencies:
 
@@ -29,7 +29,7 @@ Dependencies:
 
 More Info:
 
-	https://github.com/Anaminus/rbxload.lua
+	https://github.com/Anaminus/rbxloader.lua
 
 ]]
 
