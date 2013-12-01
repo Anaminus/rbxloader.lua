@@ -4,7 +4,7 @@ Downloads ROBLOX builds using a command-line interface.
 
 ## Arguments
 
-rbxloader.lua accepts the following arguments:
+rbxloader.lua accepts the following arguments. Order matters.
 
 1. The directory to download to. Defaults to the current directory.
 2. The domain to download from. Defaults to `roblox.com`.
