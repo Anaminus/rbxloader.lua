@@ -23,3 +23,13 @@ lua rbxload.lua . roblox.com player
 lua rbxload.lua %temp%/roblox/gt5/ gametest1.robloxlabs.com studio
 lua rbxload.lua C:/roblox/gt5/ gametest5.robloxlabs.com version-1a2b3c4d5e6f7890
 ```
+
+## Dependencies
+
+- [LuaFileSystem][lfs]
+- [LuaSocket][lsocket]
+- [LuaZip][lzip]
+
+[lfs]: http://keplerproject.github.io/luafilesystem/
+[lsocket]: http://w3.impa.br/%7Ediego/software/luasocket/
+[lzip]: http://www.keplerproject.org/luazip/
