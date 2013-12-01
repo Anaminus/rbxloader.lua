@@ -47,23 +47,23 @@ local function path(...)
 	return p:gsub('[\\/]+','/')
 end
 
--- Open a file while creating any necessary directories.
+-- Open a file after creating any necessary directories.
 local function dopen(name,...)
-	local dir = ''
-	name = path(name)
-	for folder in name:gmatch("[^/]") do
-		local f,m = io.open(name,'w')
-		if f then
-			f:close()
-			return io.open(name,...)
-		elseif m:match('No such file or directory') then
-			dir = path(dir,folder)
-			lfs.mkdir(dir)
-		else
-			return nil,m
+	local f = io.open(name,...)
+	if f then
+		return f
+	end
+
+	local function d(s)
+		s = s:match('^(.+)/')
+		if s then
+			d(s)
+			lfs.mkdir(s)
 		end
 	end
-	return nil,'Could not open file'
+	d(name)
+
+	return io.open(name,...)
 end
 
 -- Unzip the contents of a zip file into a directory.
@@ -93,28 +93,28 @@ local globalZip = {
 	{"NPRobloxProxy"     , [[]]};
 	{"Libraries"         , [[]]};
 	{"redist"            , [[]]};
-	{"shaders"           , [[shaders/]]};
-	{"content-music"     , [[content/music/]]};
-	{"content-sky"       , [[content/sky/]]};
-	{"content-sounds"    , [[content/sounds/]]};
-	{"content-fonts"     , [[content/fonts/]]};
-	{"content-particles" , [[content/particles/]]};
-	{"content-textures"  , [[content/textures/]]};
-	{"content-textures2" , [[content/textures/]]};
-	{"content-textures3" , [[PlatformContent/pc/textures/]]};
-	{"BuiltInPlugins"    , [[BuiltInPlugins/]]};
-	{"imageformats"      , [[imageformats/]]};
+	{"shaders"           , [[shaders]]};
+	{"content-music"     , [[content/music]]};
+	{"content-sky"       , [[content/sky]]};
+	{"content-sounds"    , [[content/sounds]]};
+	{"content-fonts"     , [[content/fonts]]};
+	{"content-particles" , [[content/particles]]};
+	{"content-textures"  , [[content/textures]]};
+	{"content-textures2" , [[content/textures]]};
+	{"content-textures3" , [[PlatformContent/pc/textures]]};
+	{"BuiltInPlugins"    , [[BuiltInPlugins]]};
+	{"imageformats"      , [[imageformats]]};
 }
 
 local function downloadVersion(version,domain,dir)
 	for i = 1,#globalZip do
-		local url = "http://setup." .. path(domain,version) .. '-' .. globalZip[i][1] .. '.zip'
+		local url = 'http://setup.' .. path(domain,version .. '-' .. globalZip[i][1] .. '.zip')
 		local zipData = assert(http.request(url))
 		local f = assert(io.open('temp','wb'))
 		f:write(zipData)
 		f:flush()
 		f:close()
-		unzip('temp',path(dir or '',globalZip[i][2]))
+		unzip('temp',path(dir or '.',globalZip[i][2]))
 	end
 	os.remove('temp')
 
@@ -130,28 +130,32 @@ local function downloadVersion(version,domain,dir)
 	f:close()
 end
 
+local domain = arg[2] or 'roblox.com'
+
 local versionHash do
 	if not arg[3] or arg[3]:lower() == 'player' then
 		print("Getting latest Player version...")
-		versionHash = http.request('http://setup.' .. path(base,'version'))
+		versionHash = http.request('http://setup.' .. path(domain,'version'))
 	elseif arg[3]:lower() == 'studio' then
 		print("Getting latest Studio version...")
-		versionHash = http.request('http://setup.' .. path(base,'versionQTStudio'))
+		versionHash = http.request('http://setup.' .. path(domain,'versionQTStudio'))
 	elseif arg[3]:match('^version%-%x+$') then
 		versionHash = arg[3]
-	else
-		error("Unknown build type",0)
+	end
+	if not versionHash then
+		error("Unknown version",0)
 	end
 end
 
-local directory = path(arg[1] or '',version)
+local directory = path(arg[1] or '.',versionHash)
 
 print("Downloading files...")
+local stamp = os.clock()
 downloadVersion(
 	versionHash,
-	arg[2] or 'roblox.com',
+	domain,
 	directory
 )
 
-print("Download finished. Files are located at")
+print("Download finished (took " .. os.clock()-stamp .. " seconds). Files are located at")
 print(directory)
