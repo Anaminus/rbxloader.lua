@@ -97,6 +97,7 @@ local globalZip = {
 	{"content-music"     , [[content/music]]};
 	{"content-sky"       , [[content/sky]]};
 	{"content-sounds"    , [[content/sounds]]};
+	{"content-scripts"   , [[content/scripts]]};
 	{"content-fonts"     , [[content/fonts]]};
 	{"content-particles" , [[content/particles]]};
 	{"content-textures"  , [[content/textures]]};
